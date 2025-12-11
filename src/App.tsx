@@ -4,13 +4,25 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function Append2random() {
-    const rand_card_x: number = Math.floor(Math.random() * 13) + 1;
-    const rand_x_color: number = Math.floor(Math.random() * 4) + 1;
-    const src = `/src/assets/${rand_x_color}/${rand_card_x}-${rand_x_color}.jpg` // dostosuj ścieżkę do zasobów
+    const rand_card_x1: number = Math.floor(Math.random() * 13) + 1;
+    const rand_x_color1: number = Math.floor(Math.random() * 4) + 1;
+    const src1 = `/src/assets/${rand_x_color1}/${rand_card_x1}-${rand_x_color1}.jpg` // dostosuj ścieżkę do zasobów
+
+    let rand_card_x2: number;
+    let rand_x_color2: number;
+
+    // wybierz drugą kartę aż będzie różna od pierwszej
+    do {
+        rand_card_x2 = Math.floor(Math.random() * 13) + 1;
+        rand_x_color2 = Math.floor(Math.random() * 4) + 1;
+    } while (rand_card_x2 === rand_card_x1 && rand_x_color2 === rand_x_color1);
+
+    const src2 = `/src/assets/${rand_x_color2}/${rand_card_x2}-${rand_x_color2}.jpg` // dostosuj ścieżkę do zasobów
 
     return (
-      <div>
-        <img src={src} alt={`${rand_card_x}-${rand_x_color}`} />
+      <div className="append2random">
+        <img id="img_2rand" src={src1} alt={`${rand_card_x1}-${rand_x_color1}`} />
+        <img id="img_2rand" src={src2} alt={`${rand_card_x2}-${rand_x_color2}`} />
       </div>
     )
 }

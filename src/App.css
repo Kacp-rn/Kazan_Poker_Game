@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.append2random
+{
+  display: flex;
+}
+
+#img_2rand{
+  margin:0px 20px 0px 20px; 
+}
