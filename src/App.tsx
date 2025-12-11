@@ -3,6 +3,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+function Append2random() {
+    const rand_card_x: number = Math.floor(Math.random() * 13) + 1;
+    const rand_x_color: number = Math.floor(Math.random() * 4) + 1;
+    const src = `/src/assets/${rand_x_color}/${rand_card_x}-${rand_x_color}.jpg` // dostosuj ścieżkę do zasobów
+
+    return (
+      <div>
+        <img src={src} alt={`${rand_card_x}-${rand_x_color}`} />
+      </div>
+    )
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -17,6 +29,10 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+
+      {/* Tutaj wyrenderowany komponent */}
+      <Append2random />
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
