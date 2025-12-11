@@ -27,12 +27,27 @@ function Append2random() {
     )
 }
 
+function Display3hidden()
+{
+  return (
+    <>
+    <div className='dispay3hidden'>
+      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
+      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
+      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
+    </div>
+    </>
+  )
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
+
+        <Display3hidden/>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>

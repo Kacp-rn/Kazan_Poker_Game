@@ -41,11 +41,15 @@
   color: #888;
 }
 
-.append2random
+.append2random .display3hidden
 {
   display: flex;
 }
 
 #img_2rand{
+  margin:0px 20px 0px 20px; 
+}
+
+#img_3_hidden{
   margin:0px 20px 0px 20px; 
 }
