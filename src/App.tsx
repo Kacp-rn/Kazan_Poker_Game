@@ -1,15 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import backCard from './assets/back_card.png'
+
+let rand_card_x1: number;
+let rand_x_color1: number;
+let src1:string;
+
+let rand_card_x2: number;
+let rand_x_color2: number;
+let src2:string;
+
+let rand_card_x3: number;
+let rand_x_color3: number;
+let src3:string;
+
+let rand_card_x4: number;
+let rand_x_color4: number;
+let src4:string;
+
+let rand_card_x5: number;
+let rand_x_color5: number;
+let src5:string;
+
+let rand_card_x6: number;
+let rand_x_color6: number;
+let src6:string;
+
+let rand_card_x7: number;
+let rand_x_color7: number;
+let src7:string;
+
+let rand_card_x_opponent1: number;
+let rand_x_color_opponent1: number;
+let src_oppo1:string;
+
+let rand_card_x_opponent2: number;
+let rand_x_color_opponent2: number;
+let src_oppo2:string;
+
 
 function Append2random() {
-    const rand_card_x1: number = Math.floor(Math.random() * 13) + 1;
-    const rand_x_color1: number = Math.floor(Math.random() * 4) + 1;
-    const src1 = `/src/assets/${rand_x_color1}/${rand_card_x1}-${rand_x_color1}.jpg` // dostosuj ścieżkę do zasobów
+     rand_card_x1 = Math.floor(Math.random() * 13) + 1;
+    rand_x_color1 = Math.floor(Math.random() * 4) + 1;
+    src1 = `/src/assets/${rand_x_color1}/${rand_card_x1}-${rand_x_color1}.jpg` // dostosuj ścieżkę do zasobów
 
-    let rand_card_x2: number;
-    let rand_x_color2: number;
+    
 
     // wybierz drugą kartę aż będzie różna od pierwszej
     do {
@@ -17,7 +52,7 @@ function Append2random() {
         rand_x_color2 = Math.floor(Math.random() * 4) + 1;
     } while (rand_card_x2 === rand_card_x1 && rand_x_color2 === rand_x_color1);
 
-    const src2 = `/src/assets/${rand_x_color2}/${rand_card_x2}-${rand_x_color2}.jpg` // dostosuj ścieżkę do zasobów
+    src2 = `/src/assets/${rand_x_color2}/${rand_card_x2}-${rand_x_color2}.jpg` // dostosuj ścieżkę do zasobów
 
     return (
       <div className="append2random">
@@ -27,17 +62,19 @@ function Append2random() {
     )
 }
 
-function Display3hidden()
-{
+function Display3hidden() {
   return (
-    <>
-    <div className='dispay3hidden'>
-      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
-      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
-      <img id="img_3_hidden" src="src/assets/back_card.png" alt="back_card"/>
+    <div className='display3hidden' id='display3hidden'>
+      <img className="img_3_hidden" id='hidden1' src={backCard} alt="back_card"/>
+      <img className="img_3_hidden" id='hidden2' src={backCard} alt="back_card"/>
+      <img className="img_3_hidden" id='hidden3' src={backCard} alt="back_card"/>
     </div>
-    </>
   )
+}
+
+function ShowFirst3Cards()
+{
+
 }
 
 function App() {
@@ -46,31 +83,20 @@ function App() {
   return (
     <>
       <div>
-
         <Display3hidden/>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
       </div>
-      <h1>Vite + React</h1>
 
-      {/* Tutaj wyrenderowany komponent */}
       <Append2random />
 
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick="">
+          Rise
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+        <button onClick="">
+          Call
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
