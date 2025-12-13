@@ -152,7 +152,7 @@ function App() {
         </button>
 
         <button onClick={() => Check_button_clicks()}>
-          Bet / Call
+          Bet / Call 
         </button>
       </div>
     </>
