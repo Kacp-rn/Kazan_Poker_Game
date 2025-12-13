@@ -53,3 +53,14 @@
 .img_3_hidden{
   margin:0px 15px 0px 15px; 
 }
+
+#playercards{
+  padding: 20px 20px 20px 20px;
+  margin: 20px 20px 20px 20px;
+  background-color: #00451c;
+  border-radius: 5px;
+}
+
+#player{
+  margin: 20px;
+}
