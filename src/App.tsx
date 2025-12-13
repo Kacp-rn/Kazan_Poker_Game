@@ -32,6 +32,14 @@ let src7:string;
 
 let count_button: number = 0;
 
+let src_back:string = "scr/assets/back_card.png";
+
+
+let bet:number = 0;
+let prize:number = 0;
+let money:number = 1000;
+let count_raise_clicks:number = 0;
+
 // let rand_card_x_opponent1: number;
 // let rand_x_color_opponent1: number;
 // let src_oppo1:string;
@@ -112,11 +120,7 @@ function SetUp7Cards()
     console.log(`src6 = ${src6}`);
     console.log(`src7 = ${src7}`);
 
-}
-
-function RiseBet()
-{
-
+    src_back = "scr/assets/back_card.png";
 }
 
 function App() {
@@ -140,21 +144,27 @@ function App() {
           <img className="playercards" id='player' src={cards.src2} alt="card_2"/>
         </div>
         <div className='3hidden' id='3hidden_cards'>
-          <img className="img_3_hidden" id='hidden1' src={backCard} alt="back_card"/>
-          <img className="img_3_hidden" id='hidden2' src={backCard} alt="back_card"/>
-          <img className="img_3_hidden" id='hidden3' src={backCard} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden1' src={src_back} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden2' src={src_back} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden3' src={src_back} alt="back_card"/>
         </div>
       </div>
 
       <div className="card">
-        <button onClick={() => RiseBet()}>
-          Rise
+        <button onClick={() => RaiseBet()}>
+          Raise your bet by 100$
         </button>
 
         <button onClick={() => Check_button_clicks()}>
-          Bet / Call hwdp
+          Bet / Call
         </button>
+        <div id='nag'></div>
+        
       </div>
+      <div>
+        <img src="src/assets/wining_cases.jpg" alt="Poker_Hand_Rank"/>
+      </div>
+      
     </>
   )
 }
@@ -194,17 +204,18 @@ function ShowFirst3Cards()
 
 function Check_button_clicks()
 {
+  count_raise_clicks = 0;
   count_button += 1;
 
-  switch(count_button%4)
+  switch((count_button%5))
   {
-    case 1:
-      {
+  case 1:
+    {
         ShowFirst3Cards();
         break;
-      }
-    case 2:
-      {
+    }
+  case 2:
+    {
         let showing1 = document.getElementById('3hidden_cards');
         let x = document.createElement('img');
         x.src = src6;
@@ -212,9 +223,9 @@ function Check_button_clicks()
         x.id = 'hidden4';
         showing1?.appendChild(x);
         break;
-      }
-      case 3:
-      {
+    }
+    case 3:
+    {
         let showing2 = document.getElementById('3hidden_cards');
         let y= document.createElement('img');
         y.src = src7;
@@ -222,11 +233,123 @@ function Check_button_clicks()
         y.id = 'hidden5';
         showing2?.appendChild(y);
         break;
-      }
-      case 4:
-        {
+    }
+    case 4:
+    {
           //wining cases etc.
+          Wining_Cases();
+
           break;
-        }
+    }
+    case 0:
+    {
+          SetUp7Cards()
+
+          break;
+    }
   }
+}
+
+function Wining_Cases()
+{
+  //let cards_all : Array<number>; 
+  let cards_nr:number[] = [rand_card_x1, rand_card_x2, rand_card_x3, rand_card_x4, rand_card_x5, rand_card_x6, rand_card_x7];
+
+  let colors_nr:number[] = [rand_x_color1, rand_x_color2, rand_x_color3, rand_x_color4, rand_x_color5, rand_x_color6, rand_x_color7];
+
+  colors_nr.sort();
+  cards_nr.sort();
+
+const cardCount = countOccurrences(cards_nr);
+  const colorCount = countOccurrences(colors_nr);
+
+  const counts = Object.values(cardCount).sort((a, b) => b - a);
+
+  /* ================== KOLOR ================== */
+  const isFlush = Object.values(colorCount).some(c => c >= 5);
+
+  /* ================== POKER / STRIT ================== */
+  const uniqueCards = Array.from(new Set(cards_nr));
+  if (uniqueCards.includes(1)) uniqueCards.push(14); // as jako wysoki
+  uniqueCards.sort((a, b) => a - b);
+
+  let isStraight = false;
+  let straightCount = 1;
+
+  for (let i = 1; i < uniqueCards.length; i++) {
+    if (uniqueCards[i] === uniqueCards[i - 1] + 1) {
+      straightCount++;
+      if (straightCount >= 5) {
+        isStraight = true;
+        break;
+      }
+    } else {
+      straightCount = 1;
+    }
+  }
+
+  /* ================== UKŁADY ================== */
+  if (isStraight && isFlush) {
+    alert("🔥 Poker!");
+    money = 0;
+  }
+  else if (counts[0] === 4) {
+    alert("♣️ Kareta");
+  }
+  else if (counts[0] === 3 && counts[1] >= 2) {
+    alert("🏠 Full House");
+  }
+  else if (isFlush) {
+    alert("💎 Kolor");
+  }
+  else if (isStraight) {
+    alert("➡️ Strit");
+  }
+  else if (counts[0] === 3) {
+    alert("🎯 Trójka");
+  }
+  else if (counts[0] === 2 && counts[1] === 2) {
+    alert("👯 Dwie pary");
+  }
+  else if (counts[0] === 2) {
+    alert("👫 Para");
+  }
+  else {
+    alert("🃏 Wysoka karta");
+  }
+}
+
+function countOccurrences(arr: number[]): Record<number, number> {
+  const map: Record<number, number> = {};
+  for (const v of arr) {
+    map[v] = (map[v] || 0) + 1;
+  }
+  return map;
+}
+
+function RaiseBet()
+{
+  deleteH2();
+  let card = document.getElementById('nag');
+  let appcard = document.createElement("h2")
+  appcard.textContent = `${money}$`;
+  appcard.id = 'hwdp';
+  card?.appendChild(appcard);
+  if(!(money<100))
+  {
+  money = money - 100;
+  bet = bet + 100;
+  console.log(money);
+  console.log(bet);
+  }
+  let recard = document.createElement('h2');
+  recard.textContent = `${money}$`;
+  recard.id = 'hwdp';
+  card?.replaceChild(recard, appcard);  
+  
+}
+
+function deleteH2()
+{
+  document.getElementById('hwdp')?.remove();
 }
