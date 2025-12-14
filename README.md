@@ -1,8 +1,8 @@
-ToDo: Znajdź 52 takie same/Podobne karty do gry w dowolną grę karcianą byle żeby były w osobnych plikach i oddzielone kolorami.<br/> Kazdemu kolorowi przypisz nr od 1-4.<br/><br/>
+A simple poker game.<br><br>
+You play alone with the dealer.<br>
+In the future, a bot will be added.<br><br>
 
-Zapisuj w formacie:<br/>
-dwójka (pik, kier, trefl etc) - 1-(numer_koloru);<br/>
-trójka (pik, kier, trefl etc) - 2-(numer_koloru);<br/>
-czwórka (pik, kier, trefl etc) - 3-(numer_koloru);<br/>
-etc.<br/>
-AS (pik, kier, trefl etc) - 13-(numer_koloru);<br/>
+To launch:<br>
+<b>npm i</b><br>
+And next:<br>
+<b>npm run dev</b>
