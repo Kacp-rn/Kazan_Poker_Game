@@ -32,11 +32,10 @@ let src7:string;
 
 let count_button: number = 0;
 
-let src_back:string = "scr/assets/back_card.png";
+//let src_back:string = "scr/assets/back_card.png";
 
 
 let bet:number = 0;
-let prize:number = 0;
 let money:number = 1000;
 let count_raise_clicks:number = 0;
 
@@ -120,7 +119,7 @@ function SetUp7Cards()
     console.log(`src6 = ${src6}`);
     console.log(`src7 = ${src7}`);
 
-    src_back = "scr/assets/back_card.png";
+    //src_back = "scr/assets/back_card.png";
 }
 
 function App() {
@@ -144,9 +143,9 @@ function App() {
           <img className="playercards" id='player' src={cards.src2} alt="card_2"/>
         </div>
         <div className='3hidden' id='3hidden_cards'>
-          <img className="img_3_hidden" id='hidden1' src={src_back} alt="back_card"/>
-          <img className="img_3_hidden" id='hidden2' src={src_back} alt="back_card"/>
-          <img className="img_3_hidden" id='hidden3' src={src_back} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden1' src={backCard} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden2' src={backCard} alt="back_card"/>
+          <img className="img_3_hidden" id='hidden3' src={backCard} alt="back_card"/>
         </div>
       </div>
 
@@ -243,8 +242,9 @@ function Check_button_clicks()
     }
     case 0:
     {
-          SetUp7Cards()
-
+          resetImg();
+          SetUp7Cards();
+          updateMoney();
           break;
     }
   }
@@ -291,31 +291,39 @@ const cardCount = countOccurrences(cards_nr);
   /* ================== UKŁADY ================== */
   if (isStraight && isFlush) {
     alert("🔥 Poker!");
-    money = 0;
+    money = money + (bet*25);
   }
   else if (counts[0] === 4) {
     alert("♣️ Kareta");
+    money = money + (bet*20);
   }
   else if (counts[0] === 3 && counts[1] >= 2) {
     alert("🏠 Full House");
+    money = money + (bet*15);
   }
   else if (isFlush) {
     alert("💎 Kolor");
+    money = money + (bet*10);
   }
   else if (isStraight) {
     alert("➡️ Strit");
+    money = money + (bet*7);
   }
   else if (counts[0] === 3) {
     alert("🎯 Trójka");
+    money = money + (bet*5);
   }
   else if (counts[0] === 2 && counts[1] === 2) {
     alert("👯 Dwie pary");
+    money = money + (bet*3);
   }
   else if (counts[0] === 2) {
     alert("👫 Para");
+    money = money + (bet*2);
   }
   else {
     alert("🃏 Wysoka karta");
+    money = money + bet;
   }
 }
 
@@ -352,4 +360,48 @@ function RaiseBet()
 function deleteH2()
 {
   document.getElementById('hwdp')?.remove();
+}
+function updateMoney()
+{
+  const el = document.getElementById('hwdp');
+
+  if (el) {
+  el.textContent = `Pieniądze: ${money}$`;
+  }
+}
+
+function resetImg()
+{
+  let hid1 = document.getElementById('hidden1');
+  hid1?.remove();
+  let hid2 = document.getElementById('hidden2');
+  hid2?.remove();
+  let hid3 = document.getElementById('hidden3');
+  hid3?.remove();
+
+  let hid4 = document.getElementById('hidden4');
+  hid4?.remove();
+  let hid5 = document.getElementById('hidden5');
+  hid5?.remove();
+
+  let showing = document.getElementById('3hidden_cards');
+  let card1shown = document.createElement('img');
+  let card2shown = document.createElement('img');
+  let card3shown = document.createElement('img');
+
+  card1shown.src = backCard;
+  card1shown.className = 'img_3_hidden';
+  card1shown.id='hidden1';
+
+  card2shown.src = backCard;
+  card3shown.className = 'img_3_hidden';
+  card2shown.id='hidden2';
+
+  card3shown.src = backCard;
+  card3shown.className = 'img_3_hidden';
+  card3shown.id='hidden3';
+
+  showing?.appendChild(card1shown);
+  showing?.appendChild(card2shown);
+  showing?.appendChild(card3shown);
 }
